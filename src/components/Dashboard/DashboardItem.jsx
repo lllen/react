@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardItems = ({ title, component }) => {
+const DashboardItem = ({ title, component }) => {
     return (
         <>
             {title}
@@ -10,4 +10,4 @@ const DashboardItems = ({ title, component }) => {
     )
 };
 
-export { DashboardItems };
+export { DashboardItem };

@@ -1,2 +1,3 @@
 export { Dashboard as default } from "./Dashboard";
-export { DashboardItems } from "./DashboardItems";
+export { DashboardItem } from "./DashboardItem";
+export { DashboardRow } from "./DashboardRow";
