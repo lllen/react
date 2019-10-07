@@ -1,29 +1,32 @@
 import React from 'react';
 import './App.css';
 
-import Charts from './components/Charts'
 import Dashboard, { DashboardItems } from './components/Dashboard'
 import PieChart from "./plots/pieChart";
-import {pieDataPoints} from "./components/Charts/data";
+import { lineDataPoints, pieDataPoints } from "./components/Charts/data";
+import LineChart from "./plots/lineChart";
 
 class App extends React.Component {
-  testComponent = () => {
+  pieChartComponent = () => {
     return ( <PieChart title="Custom title" dataPoints={pieDataPoints} />)
   };
+
+    lineChartComponent = () => {
+        return ( <LineChart title="Custom title" dataPoints={lineDataPoints} />)
+    };
 
     render() {
 
       return (
           <>
-              {/*<Charts />*/}
               <Dashboard>
                 <DashboardItems
                     title="test1"
-                    component={this.testComponent()}
+                    component={this.pieChartComponent()}
                 />
                 <DashboardItems
                     title="test2"
-                    component={this.testComponent()}
+                    component={this.lineChartComponent()}
                 />
               </Dashboard>
           </>
