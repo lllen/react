@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { isNumber } from '../../utils';
-
 const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 	const getGrid = () => {
 		const gridSchema = [];
@@ -17,27 +15,33 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 		}
 
 		const gridProps = grid.split('-');
-
-		const test = gridProps.map(g => {
-			if (!isNumber(g)) {
-				const gapCount = g.split('_')[1];
-
-				return null;
-			}
-
-			return `${g}fr`;
-		});
-
+		const gapCount = getGap(gridProps);
+		console.log(gapCount);
 		gridStyle.gridTemplateColumns = gridSchema.join(' ');
 
-		console.log(test);
 
 		return { ...gridStyle };
 	};
 
+    const isNumber = (value) => { // toDo: improve check, move to utils
+        return (value % 1) === 0;
+    };
+
+    const getGap = (gridProps) => { // toDo: refactoring
+        return gridProps.find(g => {
+            if (!isNumber(g)) {
+                return `${g.split('_')[1]}fr`;
+            }
+        }).split('_')[1] + 'fr';
+	};
+
 	return (
 		<div style={getGrid()}>
-			{ children }
+			{
+				children.map((child, index) => {
+					//return <div style={{gridColumnStart: `${gridProps[index]}`}}>{child}</div>
+				})
+			}
 		</div>
 	);
 };

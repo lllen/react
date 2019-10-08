@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Dashboard, {DashboardItem, DashboardRow} from './components/Dashboard'
+import GridLayout, {GridLayoutRow} from './components/GridLayout'
 import PieChart from "./plots/pieChart";
 import {lineDataPoints, pieDataPoints} from "./components/Charts/data";
 import LineChart from "./plots/lineChart";
@@ -17,27 +18,15 @@ class App extends React.Component {
     render() {
 
         return (
-            <Dashboard>
-                <DashboardRow grid="2-3">
-                    <DashboardItem
-                        title="test1"
-                        component={this.pieChartComponent()}
-                    />
-                    <DashboardItem
-                        title="test2"
-                        component={this.lineChartComponent()}
-                    />
-                    <DashboardItem
-                        title="test2"
-                        component={this.lineChartComponent()}
-                    />
-                    <DashboardItem
-                        title="test1"
-                        component={this.pieChartComponent()}
-                    />
-
-                </DashboardRow>
-            </Dashboard>
+            <GridLayout>
+                <GridLayoutRow
+                    grid="4-offset_2-4"
+                    gapColumn={2}
+                >
+                    {this.pieChartComponent()}
+                    {this.pieChartComponent()}
+                </GridLayoutRow>
+            </GridLayout>
         );
     }
 }
