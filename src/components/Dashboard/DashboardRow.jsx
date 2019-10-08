@@ -5,14 +5,19 @@ import PropTypes from 'prop-types';
 
 const DashboardRow = ({ children, itemsCount, grid }) => {
     const getGridTemplate = () => {
-        return grid.split('-');
+        return grid.split('-').map(column => column + 'fr ').join(' ');
     };
 
     const componentClassName = classNames(
         styles.dashboardRow
     );
+
+    const gridColumns = {
+        gridTemplateColumns: getGridTemplate()
+    };
+
     return (
-        <div className={componentClassName} style={{grid-template-rows: `${getGridTemplate()[0]}fr ${getGridTemplate()[1]}fr`}}>
+        <div className={componentClassName} style={gridColumns}>
             {children.map((child, index) =>
                 <div key={index}>{child}</div>
             )}
