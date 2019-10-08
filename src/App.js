@@ -27,6 +27,15 @@ class App extends React.Component {
                         title="test2"
                         component={this.lineChartComponent()}
                     />
+                    <DashboardItem
+                        title="test2"
+                        component={this.lineChartComponent()}
+                    />
+                    <DashboardItem
+                        title="test1"
+                        component={this.pieChartComponent()}
+                    />
+
                 </DashboardRow>
             </Dashboard>
         );
