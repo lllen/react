@@ -18,7 +18,7 @@ class App extends React.Component {
 
         return (
             <Dashboard>
-                <DashboardRow itemsCount={2} grid="4-2">
+                <DashboardRow grid="2-3">
                     <DashboardItem
                         title="test1"
                         component={this.pieChartComponent()}
