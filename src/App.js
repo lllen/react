@@ -8,11 +8,11 @@ import LineChart from "./plots/lineChart";
 
 class App extends React.Component {
     pieChartComponent = () => {
-        return (<PieChart title="Custom title" dataPoints={pieDataPoints}/>)
+        return (<PieChart title="Pie chart" dataPoints={pieDataPoints}/>)
     };
 
     lineChartComponent = () => {
-        return (<LineChart title="Custom title" dataPoints={lineDataPoints}/>)
+        return (<LineChart title="Line chart" dataPoints={lineDataPoints}/>)
     };
 
     render() {
