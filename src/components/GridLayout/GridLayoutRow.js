@@ -11,18 +11,23 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 	};
 
 	const getGrid = () => {
+		return {
+			display: 'grid',
+		};
+	};
+
+	const getBaseGrid = () => {
 		const gridSchema = [];
 		const gridStyle = {
 			display: 'grid',
-	//		gridColumnGap: `${gapColumn}em`
+			gridColumnGap: `${gapColumn}em`
 		};
 
-		// eslint-disable-next-line
 		for (let i = 0; baseGrid > i; ++i) {
 			gridSchema.push('1fr');
 		}
-		//gridStyle.gridTemplateColumns = gridSchema.join(' ');
-		return { ...gridStyle };
+		gridStyle.gridTemplateColumns = gridSchema.join(' ');
+		return {...gridStyle};
 	};
 
 	const getGridItems = () => {
@@ -58,18 +63,33 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
         return gridStyles;
     };
 
+	const isValidGrid = (grid) => {
+		return grid.split('-').reduce((counter, gridProps) => {
+			counter += gridProps;
+			return counter;
+		}, 0) <= 12;
+	};
+
 	console.log(getGridItemsStyles());
     let gridItemsStyles = getGridItemsStyles();
 
 	return (
-		<div style={getGrid()}>
-			{
-				children.map((child, index) => {
-				    console.log(gridItemsStyles[index]);
-					return <div style={gridItemsStyles[index]}>{child}</div>
-				})
-			}
-		</div>
+		isValidGrid(grid) ?
+			<div style={getGrid()}>
+				{
+					children.map((child, index) => {
+						return <div style={gridItemsStyles[index]}>{child}</div>
+					})
+				}
+			</div> :
+			<div style={getBaseGrid()}>
+				{
+					children.map((child) => {
+						return <div>{child}</div>
+					})
+				}
+			</div>
+
 	);
 };
 
