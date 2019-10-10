@@ -7,59 +7,66 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 	};
 
 	const getGap = (gridProps) => { // toDo: refactoring
-		return gridProps.split('_')[1] + 'fr';
+		return gridProps.split('_')[1];
 	};
 
 	const getGrid = () => {
 		const gridSchema = [];
 		const gridStyle = {
 			display: 'grid',
-			gridColumnGap: `${gapColumn}em`
+	//		gridColumnGap: `${gapColumn}em`
 		};
 
 		// eslint-disable-next-line
 		for (let i = 0; baseGrid > i; ++i) {
 			gridSchema.push('1fr');
 		}
-		gridStyle.gridTemplateColumns = gridSchema.join(' ');
+		//gridStyle.gridTemplateColumns = gridSchema.join(' ');
 		return { ...gridStyle };
 	};
 
-	const getGridItem = () => {
-		let gridItems = [];
-		const temp = grid.split('-').reduce((propsObj, gridProps) => {
+	const getGridItems = () => {
+        return grid.split('-').reduce((propsObj, gridProps) => {
 			if(isGapDimension(gridProps)) {
 				propsObj.push({
-					gap: getGap(gridProps)
+					gap: Number(getGap(gridProps))
 				});
 			} else {
 				propsObj.push({
-					col: `${gridProps}fr`
+					col: Number(gridProps)
 				});
 			}
 			return propsObj;
 		}, []);
-
-		console.log(temp);
-		// const gridProps = grid.split('-');
-		// const gapCount = getGap(gridProps);
-		// console.log(gapCount);
-
-		return gridItems;
 	};
 
-	getGridItem();
+	const getGridItemsStyles = () => {
+	    let gridItems = getGridItems();
+	    let gridStyles = [];
 
-    const isNumber = (value) => { // toDo: improve check, move to utils
-        return (value % 1) === 0;
+	    for(let i = 0, counter = 1; i < gridItems.length; i++) {
+            if(Object.keys(gridItems[i]) == 'col') {
+                gridStyles.push({
+                    gridColumnStart: counter,
+                    gridColumnEnd: counter + gridItems[i].col
+                });
+                counter += gridItems[i].col;
+            } else if(Object.keys(gridItems[i]) == 'gap') {
+                counter += gridItems[i].gap;
+            }
+        }
+        return gridStyles;
     };
 
+	console.log(getGridItemsStyles());
+    let gridItemsStyles = getGridItemsStyles();
 
 	return (
 		<div style={getGrid()}>
 			{
 				children.map((child, index) => {
-					//return <div style={{gridColumnStart: `${gridProps[index]}`}}>{child}</div>
+				    console.log(gridItemsStyles[index]);
+					return <div style={gridItemsStyles[index]}>{child}</div>
 				})
 			}
 		</div>

@@ -20,11 +20,11 @@ class App extends React.Component {
         return (
             <GridLayout>
                 <GridLayoutRow
-                    grid="4-offset_2-4"
+                    grid="3-offset_1-5"
                     gapColumn={2}
                 >
                     {this.pieChartComponent()}
-                    {this.pieChartComponent()}
+                    {this.lineChartComponent()}
                 </GridLayoutRow>
             </GridLayout>
         );
