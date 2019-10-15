@@ -47,6 +47,7 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 
 	const getGridItemsStyles = () => {
 	    let gridItems = getGridItems();
+	    console.log(gridItems);
 	    let gridStyles = [];
 
 	    for(let i = 0, counter = 1; i < gridItems.length; i++) {
@@ -72,16 +73,18 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 
 	console.log(getGridItemsStyles());
     let gridItemsStyles = getGridItemsStyles();
-
-	return (
-		isValidGrid(grid) ?
+    let gridRow;
+    if(isValidGrid(grid)) {
+    	gridRow =
 			<div style={getGrid()}>
 				{
 					children.map((child, index) => {
 						return <div style={gridItemsStyles[index]}>{child}</div>
 					})
 				}
-			</div> :
+			</div>
+	} else {
+		gridRow =
 			<div style={getBaseGrid()}>
 				{
 					children.map((child) => {
@@ -89,8 +92,8 @@ const GridLayoutRow = ({ children, grid, gapColumn, baseGrid }) => {
 					})
 				}
 			</div>
-
-	);
+	}
+	return gridRow;
 };
 
 GridLayoutRow.defaultProps = {
